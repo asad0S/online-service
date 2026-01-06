@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>خدمات آنلاین سرافرازی</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- اضافه کردن Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body class="mobile-optimized">
+    <!-- هدر و ناوبری -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-passport logo-icon"></i>
+                <h1>خدمات آنلاین سرافرازی</h1>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#" class="nav-link active" data-page="home">صفحه اول</a></li>
+                    <li><a href="#" class="nav-link" data-page="visa">درخواست ثبت نام</a></li>
+                    <li><a href="https://asad0s.github.io/search/search-satus.html" class="nav-link external" target="_blank">پیگیری ویزا</a></li>
+                    <li><a href="#" class="nav-link" data-page="contact">تماس با ما</a></li>
+                    <li><a href="#" class="nav-link" data-page="admin" id="adminLink" style="display: none;">مدیریت</a></li>
+                </ul>
+            </nav>
+    </header>
+    
+    <!-- بخش اصلی محتوا -->
+    <main class="container">
+        <!-- صفحه اصلی -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <h2>خدمات آنلاین سرافرازی</h2>
+                <p>ارائه  خدمات آنلاین در سراسر افغانستان</p>
+            </div>
+            
+            <h2 style="color: #1a5f7a; text-align: center; margin-bottom: 1.5rem;">خدمات فعلی ما</h2>
+            
+           <!-- تغییر در بخش خدمات -->
+<div class="services-grid">
+    <div class="service-card clickable-passport" onclick="goToVisaPage()">
+        <i class="fas fa-file-signature service-icon"></i>
+        <h3>ثبت نام فورم آنلاین پاسپورت</h3>
+        <p>ثبت نام سریع و آسان فورم پاسپورت به صورت آنلاین</p>
+    </div>
+    
+    <div class="service-card clickable-tazkera" onclick="goToVisaPage()">
+        <i class="fas fa-id-card service-icon"></i>
+        <h3>ثبت نام تذکره الکترونیکی</h3>
+        <p>درخواست و ثبت نام تذکره الکترونیکی با راهنمایی کامل</p>
+    </div>
+    
+    <div class="service-card clickable-photo" onclick="goToContactPage()">
+        <i class="fas fa-camera service-icon"></i>
+        <h3>عکاسی رسمی</h3>
+        <p>عکاسی پاسپورتی و رسمی با استانداردهای بین‌المللی برای مدارک مختلف</p>
+    </div>
+    
+    <div class="service-card clickable-copy" onclick="goToContactPage()">
+        <i class="fas fa-copy service-icon"></i>
+        <h3>فتوکاپی اسناد</h3>
+        <p>فتوکپی با کیفیت از کلیه اسناد و مدارک مورد نیاز</p>
+    </div>
+    
+    <div class="service-card clickable-visa" onclick="goToVisaPage()">
+        <i class="fas fa-plane service-icon"></i>
+        <h3>اجرای ویزه ایران</h3>
+        <p>اخذ ویزه کاری ایران با سریع‌ترین زمان ممکن</p>
+    </div>
+</div>
+        </section>
+        
+        <!-- صفحه درخواست ویزا -->
+        <section id="visa" class="page">
+            <div class="visa-form-container">
+                <h2 class="form-title">درخواست ثبت نام آنلاین</h2>
+                
+                <form id="visaForm">
+                    <div class="form-group">
+                        <label for="fullName">نام کامل</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="نام و نام خانوادگی خود را وارد کنید">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">شماره تماس واتساپ</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="07xxxxxxxx">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="visaType">نوع ثبت نام</label>
+                        <select id="visaType" name="visaType" required>
+                            <option value="">انتخاب کنید</option>
+                            <option value="visa">ویزا کاری ایران (یک ماهه)</option>
+                            <option value="passport">ثبت نام پاسپورت</option>
+                            <option value="tazkera">ثبت نام تذکره الکترونیکی</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">توضیحات اضافی (اختیاری)</label>
+                        <textarea id="message" name="message" rows="4" placeholder="هرگونه توضیح اضافی را در اینجا بنویسید"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span id="submitText">ارسال درخواست</span>
+                        <span id="loadingSpinner" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i> در حال ارسال...
+                        </span>
+                    </button>
+                    
+                    <div id="formStatus" class="form-status"></div>
+                </form>
+            </div>
+        </section>
+        
+        <!-- صفحه تماس با ما -->
+        <section id="contact" class="page">
+            <h2 style="color: #1a5f7a; text-align: center; margin-bottom: 2rem;">تماس با ما</h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 style="color: #1a5f7a; margin-bottom: 1.5rem;">اطلاعات تماس</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>آدرس</h4>
+                            <p>ولایت فاریاب شهر میمنه</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>تلفن</h4>
+                            <p>0799846656</p>
+                            <p>0778743678</p>
+                            <p>0705927368</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>ایمیل</h4>
+                            <p>sarafrazi893@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>ساعات کاری</h4>
+                            <p>همه روزه از ساعت 8 صبح تا 6 شام</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="map-placeholder">
+                        <div style="text-align: center;">
+                            <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 1rem; color: #1a5f7a;"></i>
+                            <p>نقشه موقعیت مکانی خدمات آنلاین سرافرازی</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 10px; padding: 2rem; margin-top: 2rem; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);">
+                        <h3 style="color: #1a5f7a; margin-bottom: 1rem;">ارسال پیام</h3>
+                        <p>برای ارسال پیام مستقیم، از فرم درخواست ویزا استفاده کنید یا با شماره‌های تماس بالا ارتباط برقرار کنید.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- صفحه مدیریت (فقط برای ادمین) -->
+        <section id="admin" class="page">
+            <div class="admin-console">
+                <div class="admin-header">
+                    <h2 style="color: #1a5f7a;">پنل مدیریت سرافرازی</h2>
+                    <div>
+                        <button id="refreshBtn" class="submit-btn small" style="display: none;">
+                            <i class="fas fa-sync-alt"></i> بروزرسانی
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="adminLoginForm">
+                    <h3 style="color: #1a5f7a; margin-bottom: 1.5rem; text-align: center;">ورود به پنل مدیریت</h3>
+                    <div style="max-width: 400px; margin: 0 auto;">
+                        <div class="form-group">
+                            <label for="adminPassword">رمز ورود</label>
+                            <input type="password" id="adminPassword" class="consultation-input" placeholder="رمز مدیریت را وارد کنید">
+                        </div>
+                        <button class="submit-btn" onclick="loginAsAdmin()">
+                            <i class="fas fa-sign-in-alt"></i> ورود به پنل
+                        </button>
+                        <div style="margin-top: 1rem; text-align: center; color: #666; font-size: 0.9rem;">
+                            <code style="background: #f8f9fa; padding: 5px 10px; border-radius: 4px; font-family: monospace;">
+                                
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="adminContent" style="display: none;">
+                    <div class="admin-stats" id="adminStats">
+                        <!-- آمار به صورت داینامیک پر می‌شود -->
+                    </div>
+                    
+                    <!-- تب‌های مدیریت -->
+                    <div style="margin-bottom: 2rem;">
+                        <div style="display: flex; gap: 10px; border-bottom: 2px solid #f0f0f0;">
+                            <button class="submit-btn small active-tab" id="tabRequests" onclick="switchTab('requests')">
+                                <i class="fas fa-file-alt"></i> درخواست‌های ویزا
+                            </button>
+                            <button class="submit-btn small" id="tabConsultations" onclick="switchTab('consultations')">
+                                <i class="fas fa-comments"></i> پیام‌های مشاوره
+                            </button>
+                            <button class="submit-btn small" id="tabLogout" onclick="logoutAdmin()" style="background-color: #6c757d;">
+                                <i class="fas fa-sign-out-alt"></i> خروج
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- محتوای تب درخواست‌ها -->
+                    <div id="tabRequestsContent">
+                        <div class="requests-table-container">
+                            <div id="requestsList">
+                                <div class="loading-spinner">
+                                    <div class="spinner"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- محتوای تب مشاوره -->
+                    <div id="tabConsultationsContent" style="display: none;">
+                        <div id="consultationsList">
+                            <div class="loading-spinner">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- ویجت مشاوره برای کاربران -->
+    <div class="consultation-widget mobile-optimized" id="consultationWidget">
+        <button class="consultation-btn" id="consultationToggleBtn">
+            <i class="fas fa-comment-medical"></i>
+            <span class="unread-badge" id="unreadBadge" style="display: none;">0</span>
+        </button>
+        <div class="consultation-window" id="consultationWindow">
+            <div class="consultation-header">
+                <h3><i class="fas fa-headset"></i> مشاوره رایگان</h3>
+                <button class="close-consultation" id="closeConsultationBtn" aria-label="بستن پنجره مشاوره">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="consultation-body">
+                <div class="consultation-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="info-text">سوالات خود را اینجا بنویسید. تیم ما در اسرع وقت پاسخ خواهند داد.</span>
+                </div>
+                
+                <!-- تاریخچه پیام‌ها -->
+                <div class="message-history" id="messageHistory">
+                    <div class="no-messages">
+                        <i class="fas fa-comment-slash"></i><br>
+                        <span class="message-text">هنوز پیامی وجود ندارد. اولین سوال خود را بپرسید.</span>
+                    </div>
+                </div>
+                
+                <!-- فرم ارسال پیام -->
+                <form id="consultationForm" class="consultation-form">
+                    <textarea 
+                        class="consultation-input" 
+                        id="consultationMessage" 
+                        placeholder="سوال یا درخواست مشاوره خود را اینجا بنویسید..." 
+                        required
+                        aria-label="متن پیام مشاوره"
+                    ></textarea>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> 
+                        <span class="btn-text">ارسال برای مشاوره</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- مدال نمایش جزئیات درخواست -->
+    <div id="requestDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: #1a5f7a; margin: 0;">جزئیات درخواست</h3>
+                <button class="modal-close" id="modalCloseBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="requestDetailsContent">
+                <!-- جزئیات درخواست به صورت داینامیک پر می‌شود -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- مدال پاسخ به مشاوره -->
+    <div id="consultationReplyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: #1a5f7a; margin: 0;">پاسخ به مشاوره</h3>
+                <button class="modal-close" id="closeConsultationReplyBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="consultationReplyContent">
+                <!-- محتوای پاسخ به صورت داینامیک پر می‌شود -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- نوتیفیکیشن ادمین -->
+    <div class="admin-notification" id="adminNotification">
+        <div>
+            <strong><i class="fas fa-bell"></i> پیام جدید</strong>
+            <p id="notificationMessage"></p>
+            <small id="notificationTime"></small>
+        </div>
+    </div>
+    
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-passport logo-icon"></i>
+                    <h2>خدمات آنلاین سرافرازی</h2>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2026 کلیه حقوق برای خدمات آنلاین سرافرازی محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="code.js"></script>
+</body>
+</html>
